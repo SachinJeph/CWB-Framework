@@ -3,6 +3,7 @@
 namespace CWB\Core;
 
 use CWB\Config\App;
+use CWB\Lib\Register;
 
 /**
 * Where init the framework
@@ -101,6 +102,10 @@ final class Start{
 			}
 		}
 		
+		foreach(App::$autoload as $key => $value){
+			Register::set(new $value, $key);
+		}
+		
 		// remove the magic quotes
 		self::removeMagicQuotes();
 		
@@ -122,6 +127,10 @@ final class Start{
 		// Default Configs
 		self::setDefaults();
 		
-		$_SERVER['PATH_INFO'] = $_GET['_route'];
+		$_SERVER['PATH_INFO'] = isset($_GET['_route']) ? $_GET['_route'] : '';
+		
+		// Load the Router
+		$r = new Router();
+		call_user_func_array(array(new $r->controller, (string)$r->method), (array)$r->args);
 	}
 }
