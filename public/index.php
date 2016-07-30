@@ -14,7 +14,6 @@ define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(dirname(__FILE__)));
 
 define('CWB_DIR', ROOT . DS . 'CWB' . DS);
-define('PUBLIC_DIR', __DIR__ . DS);
 
 require CWB_DIR . 'Core' . DS . 'Autoloader.php';
 
