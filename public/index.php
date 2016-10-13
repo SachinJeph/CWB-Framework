@@ -1,4 +1,5 @@
 <?php
+
 /**
 * CWB - A PHP Framework For Faster Develpoment
 * @package CWB
