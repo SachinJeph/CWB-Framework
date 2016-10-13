@@ -117,6 +117,11 @@ final class Start{
 		
 	}
 	
+	private static function validUrl2Func($string){
+		$string = preg_replace("/[^a-zA-Z0-9\_\-\.\/]/", "", $string);
+		return preg_replace("/[\-\.]/", "_", $string);
+	}
+	
 	/**
 	* Init the app
 	* load the routes and config App, DB, etc into framework.
@@ -127,10 +132,34 @@ final class Start{
 		// Default Configs
 		self::setDefaults();
 		
-		$_SERVER['PATH_INFO'] = isset($_GET['_route']) ? $_GET['_route'] : '';
+		$route = new Router;
 		
-		// Load the Router
-		$r = new Router();
-		call_user_func_array(array(new $r->controller, (string)$r->method), (array)$r->args);
+		// if file routes exists get routes array
+		if(file_exists(App::getAppDir() . 'Routes.php')){
+			// Array with routes
+			require App::getAppDir() . 'Routes.php';
+		}else{
+			// create a default array
+			$route->get('/', function(){
+				echo "CWBFramework";
+			});
+		}
+		
+		$data = $route->match($_POST);
+		if(!empty($data)){
+			$route->setFunc($data['controller'], $data['method'], $data['args']);
+			$model = str_replace('Controllers', 'Models', $route->controller);
+			$model = str_replace('Controller', 'Model', $model);
+			
+			$dispatch = new $route->controller($model, (string)$route->controller ,(string)$route->method);
+			
+			// Call the action method
+			$route->_view = call_user_func_array(array($dispatch, (string)$route->method), (array)$route->args);
+		}
+		
+		// finally, we print it output
+		if($route->_view){
+			echo $route->_view;
+		}
 	}
 }

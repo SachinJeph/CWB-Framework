@@ -17,10 +17,11 @@ class App {
 	
 	const SITE_SECURE = false;
 	
-	const DEVELOPER_MODE = TRUE;
+	const DEVELOPER_MODE = false;
 	
 	/** Key to encrypt the password **/
-	const SECRET_KEY = 'Secret Key';
+	//const SECRET_KEY = 'bcb04b7e103a0cd8b54763051cef08bc55abe029fdebae5e1d417e2ffb2a00a3';
+	const SECRET_KEY = 'bcb04b7e103a0cd8b';
 	
 	/** Cache Directory **/
 	const CACHE_PATH = '/CWB/Cache';
@@ -33,6 +34,12 @@ class App {
 	public static $autoload = array(
 		//'View' => '\CWB\Lib\View',
 	);
+	
+	const DB_NEED = true;
+	const DB_HOST = 'localhost';
+	const DB_USER = 'root';
+	const DB_PASS = '';
+	const DB_NAME = 'CWB';
 	
 	/**
 	* type of request
