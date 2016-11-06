@@ -36,11 +36,12 @@ class Controller{
 		// initialize the template class
 		$this->view = new Template($controller, $action);
 		
+		// Strat construct models
+		$this->_model = new $model();
+	
 		// Call the function to set other extra prameter for the calss
 		$this->init();
 		
-		// Strat construct models
-		$this->_model = new $model();
 	}
 	
 	protected function init(){}
@@ -111,5 +112,46 @@ class Controller{
 		if($path) $this->view->viewPath = $path;
 		// Dispatch the result of the template class
 		return $this->view;
+	}
+	
+	/** Returns the login state **/
+	public function validateLogin(){
+		if(isset($_SESSION['user_id'], $_SESSION['email'], $_SESSION['login_string'], $_SESSION['user_type'])){
+			$user_id = $_SESSION['user_id'];
+			$email = $_SESSION['email'];
+			$login_string = $_SESSION['login_string'];
+			$user_type = $_SESSION['user_type'];
+			
+			// Get the user-agent string of the user
+			$user_browser = $_SERVER['HTTP_USER_AGENT'];
+			
+			$params = Array($user_id);
+			if($user = $this->_model->getUserData($params)){
+				if($user != null){
+					$login_check = hash('sha512', $user->password . $user_browser);
+					if($login_check == $login_string){
+						// User is Logged In!!!
+						$this->userType = $user_type;
+						$this->email = $email;
+						$this->userID = $user_id;
+						return true;
+					}else{
+						// User is Not Logged In!!!
+						return false;
+					}
+				}
+				
+				// Error : User Not Found
+				header("Location: /error.php?errorCode=2001");
+				exit();
+			}
+			
+			// Error : validateLogin() won't work properly
+			header("Location: /error.php?errorCode=2000");
+			exit();
+		}else{
+			// User is not Logged in
+			return false;
+		}
 	}
 }

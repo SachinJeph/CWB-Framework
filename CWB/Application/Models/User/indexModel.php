@@ -1,6 +1,6 @@
 <?php
 
-namespace CWB\Application\Models;
+namespace CWB\Application\Models\User;
 
 use CWB\Lib\Model;
 

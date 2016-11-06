@@ -3,8 +3,6 @@
 // Main pages
 $route->get('/', "indexController@index");
 
-
-
 /*
 $route->group('GET', '/admin', [
 	'/' => "adminController@index",

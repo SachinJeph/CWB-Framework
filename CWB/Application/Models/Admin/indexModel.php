@@ -1,6 +1,6 @@
 <?php
 
-namespace CWB\Application\Models;
+namespace CWB\Application\Models\Admin;
 
 use CWB\Lib\Model;
 
@@ -11,5 +11,4 @@ use CWB\Lib\Model;
 * @package CWB
 **/
 class indexModel extends Model{
-	
 }

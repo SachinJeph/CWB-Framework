@@ -21,7 +21,7 @@ class App {
 	
 	/** Key to encrypt the password **/
 	//const SECRET_KEY = 'bcb04b7e103a0cd8b54763051cef08bc55abe029fdebae5e1d417e2ffb2a00a3';
-	const SECRET_KEY = 'bcb04b7e103a0cd8b';
+	const SECRET_KEY = 'SUPER_SECRET_CODE';
 	
 	/** Cache Directory **/
 	const CACHE_PATH = '/CWB/Cache';
@@ -37,9 +37,9 @@ class App {
 	
 	const DB_NEED = true;
 	const DB_HOST = 'localhost';
-	const DB_USER = 'root';
+	const DB_USER = 'ROOT';
 	const DB_PASS = '';
-	const DB_NAME = 'CWB';
+	const DB_NAME = 'Demo';
 	
 	/**
 	* type of request

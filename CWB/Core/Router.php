@@ -25,6 +25,7 @@ final class Router {
 		':slug' => '[a-z\-]+',
 		':name' => '[a-zA-Z]+',
 		':key' => '[a-zA-Z0-9]+',
+		':url' => '[a-zA-Z0-9\-]+',
 	];
 	
 	const REGVAL = '/({:.+?})/';	

@@ -7,8 +7,7 @@ use CWB\Lib\DB\MysqliDb;
 class Model {
 	protected $_model;
 	
-	public $db,
-		   $shopDB;
+	public $db;
 	
 	public function __construct(){
 		$this->_model = get_class($this);
@@ -63,5 +62,9 @@ class Model {
 			$token .= $codeAlphabet[$this->crypto_rand_secure(0, $max)];
 		}
 		return $token;
+	}
+	
+	public function getUserData($params){
+		return $this->db->ObjectBuilder()->rawQueryOne('SELECT password FROM users WHERE id=?', $params);
 	}
 }
